@@ -1,0 +1,103 @@
+import streamlit as st
+from PIL import Image
+
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+import datetime
+import pandas_datareader as data
+
+st.title('不動産業社')
+st.caption('不動産業についての株価を分析')
+st.subheader('指定された不動産業社の「株価平均」が来年上昇するかを判定します')
+
+#判断材料と正解率の詳細を表示
+st.text("判断に使った変数と依存度は以下の通りになっています。\n判断には「人口」「取引量の合計」「取引量の平均」「1年間の平均株価」を用いました。\n")
+image = Image.open("./data/importance.png")
+st.image(image,width=500)
+
+st.header("正解率は59~65%ほどのモデルです\n指定された年の平均株価が前年よりも上がるか、下がるかについて予想します。")
+
+
+
+#自動でリロードされないようにする
+with st.form(key='profile_form'):
+    #銘柄を指定
+    code = st.text_input(
+        "銘柄コードを入力（例:1878)"
+    )
+
+    #調べたい年を入力
+    target_year = st.text_input(
+        "調べたい年を入力(2024年の平均株価を調べたいなら:2024)"
+    )
+
+    #ボタン
+    submit_btn = st.form_submit_button('送信')
+    cancel_btn = st.form_submit_button('キャンセル')
+
+
+
+    if submit_btn:
+        memo = []
+
+        clf = RandomForestClassifier(n_estimators=105,max_depth=4)
+        x_column_list_for_multi = ["all_people","Volume_sum","Volume_mean","train_year_stooq"]
+        y_column_list_for_multi = ["UpDown"]
+
+        #all_dataのインポート
+        all_data = pd.read_csv("./data/all_people_stock_data.csv",index_col=0)
+
+
+        x_train = all_data[x_column_list_for_multi]
+        y_train = all_data[y_column_list_for_multi]
+
+        clf = RandomForestClassifier(n_estimators=105,max_depth=4)
+
+        #予測
+        clf.fit(x_train,y_train.values.ravel())
+
+        #指定された年の企業の平均株価と取引量の合計を出す
+
+        today = datetime.date.today()
+        start = '2005-01-01'
+        end = today
+
+        #データのインポート
+        #企業名コード
+        code = code + '.JP'
+
+        df = data.DataReader(code, 'stooq', start, end) 
+
+        if len(df.columns) != 0:
+
+            #終値のみを取り出す
+            df = df.drop(['Open', 'Low', 'High'], axis=1)
+
+            #年が小さいのを一番最初に並び替え
+            df.sort_values(by='Date', ascending=True, inplace=True)
+
+            
+            #終値の平均
+            memo1 = (df[df.index.year == int(target_year)-1].mean()["Close"])
+            #取引量の合計
+            memo3 = (df[df.index.year == int(target_year)-1].sum()["Volume"])
+            #取引量の平均
+            memo4 = df[df.index.year == int(target_year)-1].mean()["Volume"]
+
+
+            y_pred = clf.predict([[120000000,memo3,memo4,memo1]])
+            if y_pred == -1:
+                st.text(str(target_year) + "の平均株価は" + str(int(target_year)-1) + "の平均株価よりも下がると予想しました")
+            elif y_pred == 1:
+                st.text(str(target_year) + "の平均株価は" + str(int(target_year)-1) + "の平均株価よりも上がると予想しました")
+
+        
+        else:
+            st.text(str(code) + 'の株価情報が収集できなかったため、予想できませんでした')
+
+        
+
+
+
