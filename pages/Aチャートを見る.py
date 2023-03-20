@@ -18,7 +18,7 @@ st.text("7203.JP\n" + str(start) + "から現在(" + str(end) + ")")
 df = data.DataReader('4689.JP', 'stooq', start, end) 
 st.line_chart(df["Close"])
 
-
+st.text("以下の欄に企業コードを取得したい期間を入れれば、株価のチャートデータを取得することができますまた、終値のデータを扱っています")
 #自動でリロードされないようにする
 with st.form(key='profile_form'):
     #銘柄を指定
@@ -43,6 +43,7 @@ with st.form(key='profile_form'):
         df = data.DataReader(str(code)+'.JP', 'stooq', start, end) 
         st.line_chart(df["Close"])
 
+    st.text("＊拡大や縮小をすることができます")
 
 
 
