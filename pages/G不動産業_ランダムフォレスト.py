@@ -3,8 +3,6 @@ from PIL import Image
 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import accuracy_score
 import datetime
 import pandas_datareader as data
 
@@ -31,6 +29,11 @@ with st.form(key='profile_form'):
     #調べたい年を入力
     target_year = st.text_input(
         "調べたい年を入力(2024年の平均株価を調べたいなら:2024)"
+    )
+
+    #調べたい年の前年の人口を入力
+    people_math = st.text_input(
+        "調べたい年の前年の日本の人口を入力(例:120000000)"
     )
 
     #ボタン
@@ -87,7 +90,7 @@ with st.form(key='profile_form'):
             memo4 = df[df.index.year == int(target_year)-1].mean()["Volume"]
 
 
-            y_pred = clf.predict([[120000000,memo3,memo4,memo1]])
+            y_pred = clf.predict([[people_math,memo3,memo4,memo1]])
             if y_pred == -1:
                 st.text(str(target_year) + "の平均株価は" + str(int(target_year)-1) + "の平均株価よりも下がると予想しました")
             elif y_pred == 1:
