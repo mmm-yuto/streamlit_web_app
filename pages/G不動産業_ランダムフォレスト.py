@@ -8,10 +8,10 @@ import pandas_datareader as data
 
 st.title('不動産業社')
 st.caption('不動産業についての株価を分析')
-st.subheader('指定された不動産業社の「株価平均」が来年上昇するかを判定します')
+st.subheader('ランダムフォレストを用いて\n指定された不動産業社の「株価平均」が来年上昇するかを判定します')
 st.text("ランダムフォレストは、多数の決定木を組み合わせて構成されるアンサンブル学習の一種です。\n各決定木は、データのランダムサブセットを用いてトレーニングされ、それぞれが独立に予測を行います。\n最終的な予測は、各決定木の予測結果を多数決することで決定されます。\nランダムフォレストは、高い予測精度と汎化能力を持ち、データの欠損値や外れ値の扱いに強いため、\n様々な分野で広く利用されています。")
 #判断材料と正解率の詳細を表示
-st.text("判断に使った変数と依存度は以下の通りになっています。\n判断には「人口」「取引量の合計」「取引量の平均」「1年間の平均株価」を用いました。\n")
+st.text("判断に使った変数と依存度は以下の通りになっています。\n判断には「人口」「取引量の合計」「取引量の平均」「1年間の平均株価」を用いました。\n2005~2015年のデータで学習、テストしています")
 image = Image.open("./data/importance.png")
 st.image(image,width=500)
 
@@ -40,6 +40,7 @@ with st.form(key='profile_form'):
     submit_btn = st.form_submit_button('送信')
     cancel_btn = st.form_submit_button('キャンセル')
 
+    st.text('「送信」を押すと計算処理が始まります')
 
 
     if submit_btn:
@@ -92,13 +93,13 @@ with st.form(key='profile_form'):
 
             y_pred = clf.predict([[people_math,memo3,memo4,memo1]])
             if y_pred == -1:
-                st.text(str(target_year) + "の平均株価は" + str(int(target_year)-1) + "の平均株価よりも下がると予想しました")
+                st.subheader("指定年の次の年は株価平均は下降すると予想しました")
             elif y_pred == 1:
-                st.text(str(target_year) + "の平均株価は" + str(int(target_year)-1) + "の平均株価よりも上がると予想しました")
+                st.subheader("指定年の次の年は株価平均は上昇すると予想しました")
 
         
         else:
-            st.text(str(code) + 'の株価情報が収集できなかったため、予想できませんでした')
+            st.subheader("データが収取できず、予想できませんでした")
 
         
 
