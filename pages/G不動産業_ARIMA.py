@@ -30,6 +30,7 @@ with st.form(key='profile_form'):
     if submit_btn:
         if code == "8801(三井不動産)":
             st.subheader('予想価格は以下の通りになりました。')
+            st.text('過去約700日の予想精度')
             image1 = Image.open("./data/ARIMA_8801.png")
             st.image(image1,width=500)
             kekka1 = pd.DataFrame({

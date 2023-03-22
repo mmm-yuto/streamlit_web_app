@@ -19,7 +19,7 @@ st.subheader("業種別に今後の株価予想を行います")
 
 st.subheader("不動産業")
 st.text("回帰分析")
-st.markdown("[不動産業(LSTMモデル)](G不動産業_LSTM)")
+st.markdown("[不動産業(LSTMモデル)#未完成](G不動産業_LSTM)")
 st.markdown("[不動産業(ARIMAモデル)](G不動産業_ARIMA)")
 st.text("分類分析")
 st.markdown("[不動産業(ランダムフォレスト)](G不動産業_ランダムフォレスト)")
