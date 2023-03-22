@@ -104,9 +104,9 @@ with st.form(key='profile_form'):
 
             ans = score["estimator"][0].predict([[int(people_math),memo3,memo4,memo1]])
             if ans == 1:
-                st.subheader("指定年の次の年は株価平均は上昇すると予想しました")
+                st.subheader("指定年は株価平均は上昇すると予想しました")
             elif ans == 0:
-                st.subheader("指定年の次の年は株価平均は下降すると予想しました")
+                st.subheader("指定年は株価平均は下降すると予想しました")
             else:
                 st.subheader("予想できませんでした")
 

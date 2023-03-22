@@ -93,9 +93,9 @@ with st.form(key='profile_form'):
 
             y_pred = clf.predict([[people_math,memo3,memo4,memo1]])
             if y_pred == -1:
-                st.subheader("指定年の次の年は株価平均は下降すると予想しました")
+                st.subheader("指定年は株価平均は下降すると予想しました")
             elif y_pred == 1:
-                st.subheader("指定年の次の年は株価平均は上昇すると予想しました")
+                st.subheader("指定年は株価平均は上昇すると予想しました")
 
         
         else:
