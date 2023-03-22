@@ -28,7 +28,7 @@ with st.form(key='profile_form'):
 
 
     if submit_btn:
-        if code == "8801.jp(三井不動産)":
+        if code == "8801(三井不動産)":
             st.subheader('予想価格は以下の通りになりました。')
             image1 = Image.open("./data/ARIMA_8801.png")
             st.image(image1,width=500)
