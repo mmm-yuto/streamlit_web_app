@@ -28,9 +28,12 @@ st.markdown("[不動産業(勾配ブースティング木)](G不動産業_GBDT)"
 st.subheader("林業")
 st.text("回帰分析")
 st.markdown("[林業(LSTMモデル)](G林業_LSTM)")
+st.markdown("[林業(ARIMAモデル)](G林業_ARIMA)")
+
 
 st.text("分類分析")
 st.markdown("[林業(ランダムフォレスト)](G林業_ランダムフォレスト)")
+st.markdown("[林業(勾配ブースティング木)](G林業_GBDT)")
 
 
 
