@@ -2,8 +2,8 @@ import streamlit as st
 from PIL import Image
 import pandas as pd
 
-st.title('不動産業社')
-st.caption('不動産業についての株価を分析')
+st.title('林業')
+st.caption('林業についての株価を分析')
 st.subheader('LSTMモデルを用いて明日の株価予想値を確認することができます。')
 
 #判断材料と正解率の詳細を表示
@@ -17,7 +17,7 @@ with st.form(key='profile_form'):
     #セレクトボックス
     code = st.radio(
         '銘柄を選択',
-        ("8801(三井不動産)","8802(三菱地所)","1925(大和ハウス工業)")
+        ("1911(住友林業)","6250(やまびこ)","9514(エフオン)")
     )
 
     #ボタン
@@ -27,48 +27,48 @@ with st.form(key='profile_form'):
 
 
     if submit_btn:
-        if code == "8801(三井不動産)":
+        if code == "1911(住友林業)":
             st.subheader('予想価格は以下の通りになりました。')
             st.text('過去約400日の予想精度')
-            image1 = Image.open("./data/LSTM_8801.png")
+            image1 = Image.open("./data/LSTM_1911.png")
             st.image(image1,width=500)
             kekka1 = pd.DataFrame({
-            "MAE": [45.627224198190795],
-            "MSE": [3436.574050841363],
-            "RMSE": [58.62229994499843]},
+            "MAE": [63.57793715049341],
+            "MSE": [6083.924301324036],
+            "RMSE": [77.99951475056776]},
             index=["参考値"])
 
             st.dataframe(kekka1)
 
-            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の0.9907976倍になると予想しました")
+            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の0.9976123倍になると予想しました")
         
-        elif code == "8802(三菱地所)":
+        elif code == "6250(やまびこ)":
             st.subheader('予想価格は以下の通りになりました。')
             st.text("過去約400日の予想精度")
-            image1 = Image.open("./data/LSTM_8802.png")
+            image1 = Image.open("./data/LSTM_6250.png")
             st.image(image1,width=500)
             kekka1 = pd.DataFrame({
-            "MAE": [27.099531763980263],
-            "MSE": [1232.9539533063669],
-            "RMSE": [35.11344405361523]},
+            "MAE": [27.400918378906248],
+            "MSE": [1408.7859832598033],
+            "RMSE": [37.53379787950859]},
             index=["参考値"])
 
             st.dataframe(kekka1)
 
-            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の0.99128675倍になると予想しました")
+            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の1.010911倍になると予想しました")
 
-        elif code == "1925(大和ハウス工業)":
+        elif code == "9514(エフオン)":
             st.subheader('予想価格は以下の通りになりました。')
             st.text("過去約400日の予想精度")
-            image1 = Image.open("./data/LSTM_1925.png")
+            image1 = Image.open("./data/LSTM_9514.png")
             st.image(image1,width=500)
             kekka1 = pd.DataFrame({
-            "MAE": [47.74080555098683],
-            "MSE": [3619.363810274465],
-            "RMSE": [60.161148678149964]},
+            "MAE": [23.6924844140625],
+            "MSE": [1590.9509443889456],
+            "RMSE": [39.886726418558666]},
             index=["参考値"])
 
             st.dataframe(kekka1)
 
-            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の1.0055104倍になると予想しました")
+            st.subheader("2023-03-23の次の市場の終値は2023-03-23の終値の1.0155993倍になると予想しました")
 
