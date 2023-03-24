@@ -34,6 +34,8 @@ with st.form(key='profile_form'):
     juyou = st.text_input(
         "調べたい年の前年の木材需要量の合計を入力(81,965千m^3ならば:81905)"
     )
+    st.text("https://www.maff.go.jp/j/tokei/kouhyou/mokuzai_zyukyu/index.html")
+    st.text("から木材需要量を調べることができます")
 
     #ボタン
     submit_btn = st.form_submit_button('送信')
